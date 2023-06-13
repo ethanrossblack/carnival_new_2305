@@ -95,11 +95,19 @@ describe "Carnival" do
       2.times { @ride2.board_rider(@visitor2) }
 
       10.times{ @ride3.board_rider(@visitor3) }
+    end
 
-      @summary = @carnival.summary
+    describe "#visitors" do
+      it "returns an array containing each visitor" do
+        expect(@carnival.visitors).to contain_exactly(@visitor1, @visitor2, @visitor3)
+      end
     end
 
     describe "#summary" do
+      before(:each) do
+        @summary = @carnival.summary
+      end
+
       it "can return a summary hash of the carnival" do
         expect(@summary).to be_a Hash
       end
@@ -108,10 +116,11 @@ describe "Carnival" do
         expect(@summary[:visitor_count]).to eq 3
       end
 
-      it "includes a visitor count" do
+      it "includes total revenue earned" do
         expect(@summary[:revenue_earned]).to eq 48
       end
 
     end
+
   end
 end

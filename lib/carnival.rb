@@ -22,4 +22,21 @@ class Carnival
     rides.sum { |ride| ride.total_revenue}
   end
 
+  def visitors
+    rides.flat_map do |ride|
+      ride.rider_log.keys
+    end.uniq
+  end
+
+  def summary
+    summary_hash = Hash.new
+
+    summary_hash[:visitor_count] = visitors.count
+    summary_hash[:revenue_earned] = total_revenue
+
+    summary_hash
+  end
+
+
+
 end
