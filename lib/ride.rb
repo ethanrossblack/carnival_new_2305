@@ -19,8 +19,7 @@ class Ride
   end
 
   def total_rides
-    0 if rider_log.empty?
-
     rider_log.sum { |_rider, rides| rides }
   end
+  
 end

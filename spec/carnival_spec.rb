@@ -33,7 +33,6 @@ describe "Carnival" do
 
         expect(total_revenues).to eq 48
 
-        ###
         carnival2 = Carnival.new(14)
   
         ride4 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
@@ -61,7 +60,6 @@ describe "Carnival" do
         total_revenues = Carnival.total_revenues
 
         expect(total_revenues).to eq 96
-
       end
     end
   end
@@ -242,6 +240,4 @@ describe "Carnival" do
       end
     end
   end
-
-
 end

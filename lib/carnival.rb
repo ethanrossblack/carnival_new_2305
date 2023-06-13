@@ -26,29 +26,20 @@ class Carnival
     rides.sum { |ride| ride.total_revenue}
   end
 
-  def self.total_revenues
-    @@carnivals.sum { |carnival| carnival.total_revenue }
-  end
-
-  def self.carnivals
-    @@carnivals
-  end
-
   def visitors_array
     rides.flat_map do |ride|
       ride.rider_log.keys
     end.uniq
   end
 
-  private def visitors_summary
+  def visitors_summary
     visitors_array.map do |visitor|
       visitor_details = {}
+
       visitor_details[:visitor] = visitor
-      
       visitor_details[:favorite_ride] = rides.max_by do |ride|
         ride.rider_log[visitor]
       end
-
       visitor_details[:total_money_spent] = rides.sum do |ride|
         ride.rider_log[visitor] * ride.admission_fee
       end
@@ -57,7 +48,7 @@ class Carnival
     end
   end
 
-  private def rides_summary
+  def rides_summary
     rides.map do |ride|
       ride_details = {}
 
@@ -80,4 +71,8 @@ class Carnival
     summary_hash
   end
 
+  def self.total_revenues
+    @@carnivals.sum { |carnival| carnival.total_revenue }
+  end
+  
 end
