@@ -1,15 +1,81 @@
 require "spec_helper"
 
 describe "Carnival" do
-  before(:each) do
-    @carnival = Carnival.new(14)
 
-    @ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
-    @ride2 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
-    @ride3 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+  context "Iteration 4 Self Method" do
+    describe "#self.total_revenues" do
+      it "can return the total revenue of all carnivals" do
+        carnival = Carnival.new(14)
+  
+        ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+        ride2 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
+        ride3 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+
+        carnival.add_ride(ride1)
+        carnival.add_ride(ride2)
+        carnival.add_ride(ride3)
+
+        visitor1 = Visitor.new("Bruce", 54, "$20")
+        visitor2 = Visitor.new("Tucker", 36, "$20")
+        visitor3 = Visitor.new("Penny", 64, "$18")
+
+        visitor1.add_preference(:gentle)
+        visitor2.add_preference(:gentle)
+        visitor2.add_preference(:thrilling)
+        visitor3.add_preference(:thrilling)
+
+        15.times { ride1.board_rider(visitor1) }
+        1.times { ride2.board_rider(visitor1) }
+        2.times { ride2.board_rider(visitor2) }
+        9.times { ride3.board_rider(visitor3) }
+
+        total_revenues = Carnival.total_revenues
+
+        expect(total_revenues).to eq 48
+
+        ###
+        carnival2 = Carnival.new(14)
+  
+        ride4 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+        ride5 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
+        ride6 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+
+        carnival2.add_ride(ride4)
+        carnival2.add_ride(ride5)
+        carnival2.add_ride(ride6)
+
+        visitor4 = Visitor.new("Bruce", 54, "$20")
+        visitor5 = Visitor.new("Tucker", 36, "$20")
+        visitor6 = Visitor.new("Penny", 64, "$18")
+
+        visitor4.add_preference(:gentle)
+        visitor5.add_preference(:gentle)
+        visitor5.add_preference(:thrilling)
+        visitor6.add_preference(:thrilling)
+
+        15.times { ride4.board_rider(visitor4) }
+        1.times { ride5.board_rider(visitor4) }
+        2.times { ride5.board_rider(visitor5) }
+        9.times { ride6.board_rider(visitor6) }
+
+        total_revenues = Carnival.total_revenues
+
+        expect(total_revenues).to eq 96
+
+      end
+    end
   end
 
   context "Iteration 3: Basic Functionality" do
+    
+    before(:each) do
+      @carnival = Carnival.new(14)
+  
+      @ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+      @ride2 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
+      @ride3 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+    end
+    
     describe "#initialize" do
       it "exists and has attributes" do
         expect(@carnival).to be_a Carnival
@@ -34,6 +100,12 @@ describe "Carnival" do
 
   context "Iteration 3: Advanced Functionality" do
     before(:each) do
+      @carnival = Carnival.new(14)
+  
+      @ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+      @ride2 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
+      @ride3 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+
       @carnival.add_ride(@ride1)
       @carnival.add_ride(@ride2)
       @carnival.add_ride(@ride3)
@@ -76,6 +148,12 @@ describe "Carnival" do
 
   context "Iteration 4" do
     before(:each) do
+      @carnival = Carnival.new(14)
+  
+      @ride1 = Ride.new({ name: 'Carousel', min_height: 24, admission_fee: 1, excitement: :gentle })
+      @ride2 = Ride.new({ name: 'Ferris Wheel', min_height: 36, admission_fee: 5, excitement: :gentle })
+      @ride3 = Ride.new({ name: 'Roller Coaster', min_height: 54, admission_fee: 2, excitement: :thrilling })
+
       @carnival.add_ride(@ride1)
       @carnival.add_ride(@ride2)
       @carnival.add_ride(@ride3)
@@ -163,6 +241,7 @@ describe "Carnival" do
         expect(@summary[:rides]).to eq expected_rides_summary
       end
     end
-
   end
+
+
 end
