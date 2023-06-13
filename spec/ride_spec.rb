@@ -108,7 +108,31 @@ describe "Ride" do
         expect(@ride3.rider_log).to eq({@visitor3 => 1})
       end
 
+      it "increases total revenue by ride's the admission fee" do
+        expect(@ride1.admission_fee).to eq 1
+        expect(@ride2.admission_fee).to eq 5
+        expect(@ride3.admission_fee).to eq 2
+
+        @ride1.board_rider(@visitor1)
+        @ride1.board_rider(@visitor1)
+        @ride1.board_rider(@visitor1)
+
+        expect(@ride1.total_revenue).to eq 3
+
+        @ride2.board_rider(@visitor2)
+
+        expect(@ride2.total_revenue).to eq 5
+
+        @ride3.board_rider(@visitor3)
+        @ride3.board_rider(@visitor3)
+        @ride3.board_rider(@visitor3)
+        @ride3.board_rider(@visitor3)
+
+        expect(@ride3.total_revenue).to eq 8
+      end
+
     end
+
   end
 
 end
