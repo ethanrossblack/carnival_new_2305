@@ -50,7 +50,7 @@ describe "Carnival" do
       15.times {@ride1.board_rider(@visitor1)}
       
       @ride2.board_rider(@visitor1)
-      4.times { @ride2.board_rider(@visitor2) }
+      2.times { @ride2.board_rider(@visitor2) }
 
       10.times{ @ride3.board_rider(@visitor3) }
     end
