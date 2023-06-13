@@ -52,7 +52,7 @@ describe "Carnival" do
       @ride2.board_rider(@visitor1)
       2.times { @ride2.board_rider(@visitor2) }
 
-      10.times{ @ride3.board_rider(@visitor3) }
+      9.times{ @ride3.board_rider(@visitor3) }
     end
 
     describe "#most_popular_ride" do
@@ -94,12 +94,12 @@ describe "Carnival" do
       @ride2.board_rider(@visitor1)
       2.times { @ride2.board_rider(@visitor2) }
 
-      10.times{ @ride3.board_rider(@visitor3) }
+      9.times{ @ride3.board_rider(@visitor3) }
     end
 
-    describe "#visitors" do
+    describe "#visitors_array" do
       it "returns an array containing each visitor" do
-        expect(@carnival.visitors).to contain_exactly(@visitor1, @visitor2, @visitor3)
+        expect(@carnival.visitors_array).to contain_exactly(@visitor1, @visitor2, @visitor3)
       end
     end
 
@@ -120,6 +120,48 @@ describe "Carnival" do
         expect(@summary[:revenue_earned]).to eq 48
       end
 
+      it "includes a list of visitors and each visitor's favorite ride and how much total money a visitor spent" do
+        expected_visitors_summary = [
+          {
+            visitor: @visitor1,
+            favorite_ride: @ride1,
+            total_money_spent: 20
+          },
+          {
+            visitor: @visitor2,
+            favorite_ride: @ride2,
+            total_money_spent: 10
+          },
+          {
+            visitor: @visitor3,
+            favorite_ride: @ride3,
+            total_money_spent: 18
+          }
+        ]
+        expect(@summary[:visitors]).to eq expected_visitors_summary
+      end
+
+      it "can return a list of rides and who rode each ride and the ride's total revenue" do
+        expected_rides_summary = [
+          {
+            ride: @ride1,
+            riders: [@visitor1],
+            total_revenue: 15
+          },
+          {
+            ride: @ride2,
+            riders: [@visitor1, @visitor2],
+            total_revenue: 15
+          },
+          {
+            ride: @ride3,
+            riders: [@visitor3],
+            total_revenue: 18
+          }
+        ]
+
+        expect(@summary[:rides]).to eq expected_rides_summary
+      end
     end
 
   end
