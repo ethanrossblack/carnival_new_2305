@@ -24,12 +24,12 @@ describe "Carnival" do
 
     describe "#add_ride" do
       it "can add rides" do
-        @carvinal.add_ride(@ride1)
+        @carnival.add_ride(@ride1)
 
         expect(@carnival.rides).to eq [@ride1]
         
-        @carvinal.add_ride(@ride2)
-        @carvinal.add_ride(@ride3)
+        @carnival.add_ride(@ride2)
+        @carnival.add_ride(@ride3)
 
         expect(@carnival.rides).to eq [@ride1, @ride2, @ride3]
       end
