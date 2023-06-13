@@ -16,4 +16,24 @@ class Visitor
     height >= height_threshold
   end
 
+  def enough_money?(cost)
+    spending_money >= cost
+  end
+
+  def likes?(preference)
+    preferences.include? preference
+  end
+
+  def spend_money(cost)
+    if enough_money?(cost)
+      @spending_money -= cost
+    end
+  end
+
+  def can_ride?(ride)
+    tall_enough?(ride.min_height) and 
+    enough_money?(ride.admission_fee) and 
+    likes?(ride.excitement)
+  end
+
 end
