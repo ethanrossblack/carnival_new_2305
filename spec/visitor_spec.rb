@@ -24,8 +24,17 @@ describe "Visitor" do
     it "can add preferences" do
       @visitor1.add_preference(:gentle)
       @visitor1.add_preference(:thrilling)
-      
+
       expect(@visitor1.preferences).to eq([:gentle, :thrilling])
+      expect(@visitor2.preferences).to eq([])
+      expect(@visitor3.preferences).to eq([])
+    end
+
+    it "can tell if a visitor is tall enough for a ride based on a given height threshold" do
+      expect(@visitor1.tall_enough?(54)).to be true
+      expect(@visitor2.tall_enough?(54)).to be false
+      expect(@visitor3.tall_enough?(54)).to be true
+      expect(@visitor1.tall_enough?(64)).to be false
     end
 
   end
