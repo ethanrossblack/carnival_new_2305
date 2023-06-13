@@ -74,4 +74,44 @@ describe "Carnival" do
     end
   end
 
+  context "Iteration 4" do
+    before(:each) do
+      @carnival.add_ride(@ride1)
+      @carnival.add_ride(@ride2)
+      @carnival.add_ride(@ride3)
+
+      @visitor1 = Visitor.new("Bruce", 54, "$20")
+      @visitor2 = Visitor.new("Tucker", 36, "$20")
+      @visitor3 = Visitor.new("Penny", 64, "$18")
+
+      @visitor1.add_preference(:gentle)
+      @visitor2.add_preference(:gentle)
+      @visitor2.add_preference(:thrilling)
+      @visitor3.add_preference(:thrilling)
+
+      15.times {@ride1.board_rider(@visitor1)}
+      
+      @ride2.board_rider(@visitor1)
+      2.times { @ride2.board_rider(@visitor2) }
+
+      10.times{ @ride3.board_rider(@visitor3) }
+
+      @summary = @carnival.summary
+    end
+
+    describe "#summary" do
+      it "can return a summary hash of the carnival" do
+        expect(@summary).to be_a Hash
+      end
+
+      it "includes a visitor count" do
+        expect(@summary[:visitor_count]).to eq 3
+      end
+
+      it "includes a visitor count" do
+        expect(@summary[:revenue_earned]).to eq 48
+      end
+
+    end
+  end
 end
